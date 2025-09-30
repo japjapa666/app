@@ -176,6 +176,59 @@ const Dashboard = ({ variant = 'v1' }) => {
     );
   }
 
+  // Variant 4: Custom Teal & Amber
+  if (variant === 'v4') {
+    return (
+      <div className="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen p-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Welcome Card */}
+          <div className="bg-gradient-to-r from-[#007582] to-[#005d67] rounded-2xl shadow-2xl p-8 mb-8 border-b-4 border-[#FFC107]">
+            <h2 className="text-3xl font-bold text-white">Dashboard</h2>
+            <p className="text-[#FFC107] mt-2 font-semibold">Selamat datang di sistem RKAT Prawindu Rapi Lembang</p>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {stats.map((stat, idx) => (
+              <div key={idx} className="bg-white rounded-2xl shadow-xl p-6 hover:scale-105 transition-all border-t-4 border-[#FFC107]">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#007582] to-[#005d67] flex items-center justify-center shadow-lg">
+                    <stat.icon className="w-7 h-7 text-[#FFC107]" />
+                  </div>
+                  <span className="text-4xl font-bold text-[#007582]">{stat.value}</span>
+                </div>
+                <p className="text-gray-600 font-semibold">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Recent RKAT */}
+          <div className="bg-white rounded-2xl shadow-xl p-8 border-t-4 border-[#FFC107]">
+            <h3 className="text-xl font-bold text-[#007582] mb-6">RKAT Terbaru</h3>
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center justify-between p-5 border-2 border-gray-200 rounded-xl hover:border-[#007582] hover:shadow-lg transition-all">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#007582] to-[#005d67] rounded-xl flex items-center justify-center shadow-md">
+                      <FileText className="w-6 h-6 text-[#FFC107]" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-[#007582]">RKAT Kegiatan {i}</p>
+                      <p className="text-sm text-gray-500">Dibuat pada 11 Sep 2024</p>
+                    </div>
+                  </div>
+                  <span className="px-4 py-2 bg-[#FFC107] text-[#007582] rounded-xl text-sm font-bold shadow-md">
+                    Pending
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return null;
 };
 
