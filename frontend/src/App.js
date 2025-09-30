@@ -1,50 +1,57 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import MockupSelector from "./components/MockupSelector";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// Pages
+import Dashboard from "./pages/Dashboard";
+import Persetujuan from "./pages/Persetujuan";
+import Monitoring from "./pages/Monitoring";
+import BuatAkun from "./pages/BuatAkun";
+import Profil from "./pages/Profil";
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
+// Mockups
+import InputRKATMockup1 from "./mockups/InputRKATMockup1";
+import InputRKATMockup2 from "./mockups/InputRKATMockup2";
+import InputRKATMockup3 from "./mockups/InputRKATMockup3";
+
+function App() {
+  const [variant, setVariant] = useState('v1');
+
+  const Layout = ({ children, title }) => (
+    <div className="flex min-h-screen">
+      <Sidebar variant={variant} />
+      <div className="flex-1">
+        <Header title={title} variant={variant} />
+        {children}
+      </div>
+      <MockupSelector onSelect={setVariant} />
+    </div>
+  );
+
+  // Input RKAT page with three mockup variants
+  const InputRKATPage = () => {
+    if (variant === 'v1') {
+      return <Layout title="Input RKAT"><InputRKATMockup1 /></Layout>;
+    } else if (variant === 'v2') {
+      return <Layout title="Input RKAT"><InputRKATMockup2 /></Layout>;
+    } else {
+      return <Layout title="Input RKAT"><InputRKATMockup3 /></Layout>;
     }
   };
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
-
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
-
-function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
+          <Route path="/" element={<Layout title="Dashboard"><Dashboard variant={variant} /></Layout>} />
+          <Route path="/input-rkat" element={<InputRKATPage />} />
+          <Route path="/persetujuan" element={<Layout title="Persetujuan"><Persetujuan variant={variant} /></Layout>} />
+          <Route path="/monitoring" element={<Layout title="Monitoring"><Monitoring variant={variant} /></Layout>} />
+          <Route path="/buat-akun" element={<Layout title="Buat Akun"><BuatAkun variant={variant} /></Layout>} />
+          <Route path="/profil" element={<Layout title="Profil"><Profil variant={variant} /></Layout>} />
         </Routes>
       </BrowserRouter>
     </div>
