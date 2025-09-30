@@ -74,6 +74,34 @@ const Header = ({ title, variant = 'default' }) => {
     );
   }
 
+  // Variant 4: Custom Teal & Amber
+  if (variant === 'v4') {
+    return (
+      <div className="bg-white border-b-2 border-[#007582] px-8 py-4 shadow-md">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-gradient-to-br from-[#007582] to-[#005d67] rounded-xl flex items-center justify-center shadow-lg">
+              <span className="text-[#FFC107] text-lg font-bold">📄</span>
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-[#007582]">{title}</h1>
+              <p className="text-xs text-[#FFC107] font-bold mt-1">ADMIN</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="relative">
+              <Bell className="w-6 h-6 text-gray-600 cursor-pointer hover:text-[#007582] transition-colors" />
+              <span className="absolute -top-1 -right-1 w-3 h-3 bg-[#FFC107] rounded-full border-2 border-white"></span>
+            </div>
+            <div className="w-10 h-10 bg-gradient-to-br from-[#007582] to-[#005d67] rounded-xl flex items-center justify-center cursor-pointer shadow-lg hover:shadow-xl transition-shadow">
+              <User className="w-6 h-6 text-[#FFC107]" />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return null;
 };
 
